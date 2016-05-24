@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 public class Player extends GameObject {
 
     private Bitmap spritesheet;
+    private final int GRAVITY = 7;
     private int Iscore;
     private double Ddya;
     private boolean Bup;
@@ -20,7 +21,7 @@ public class Player extends GameObject {
 
     public Player (Bitmap res, int w, int h, int numFrames){
         this.Ix=500;
-        this.Iy = 2300;
+        this.Iy = 918;
         Iscore = 0;
         Iheight = h;
         Iwidth = w;
@@ -49,12 +50,16 @@ public class Player extends GameObject {
             LstartTime = System.nanoTime();
 
         }
+        Ddya -= GRAVITY;
+        Iy -= Ddya;
+        if (Iy > 918)
+            Iy = 918;
         animation.update();
         Ix += movement;
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), 50, 918, null);                 //remove hard code
+        canvas.drawBitmap(animation.getImage(), 50, Iy, null);                 //remove hard code
 
     }
     public int getScore() {return Iscore;}

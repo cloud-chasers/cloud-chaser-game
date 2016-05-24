@@ -67,7 +67,9 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public boolean onTouchEvent(MotionEvent event){
 
         if (event.getAction()==MotionEvent.ACTION_DOWN) {
-            player.setMovement(-1);
+            player.setDdya(100);
+            System.out.println("X Value " + (int) event.getX());
+            System.out.println("Y Value " + (int)event.getY());
         }
         return super.onTouchEvent(event);
 
