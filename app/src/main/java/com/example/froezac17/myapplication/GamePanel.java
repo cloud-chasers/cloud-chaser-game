@@ -1,6 +1,7 @@
 package com.example.froezac17.myapplication;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -18,6 +19,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Background bg;
     private Player player;
+    private Arrow up, down, left, right;
 
 
     public GamePanel(Context contect){
@@ -38,6 +40,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         bg = new Background(BitmapFactory.decodeResource(getResources(),R.mipmap.ground), BitmapFactory.decodeResource(getResources(), R.mipmap.background));
         player = new Player(BitmapFactory.decodeResource(getResources(), R.mipmap.player), 178, 282, 5);
+        up = new Arrow(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow), 200, 1200);
 
         thread.setBrunning(true);
         thread.start();
@@ -93,6 +96,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             final int savedState = canvas.save();
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
+            up.draw(canvas);
             player.draw(canvas);
             canvas.restoreToCount(savedState);
         }

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         //turn off title
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        getSupportActionBar().hide();
         //set fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
