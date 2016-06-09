@@ -9,18 +9,19 @@ import android.graphics.Canvas;
 public class Player extends GameObject {
 
     private Bitmap spritesheet;
-    private final int GRAVITY = 7;
+    private final int GRAVITY = 5;
     private int Iscore;
+    private int dx;
     private double Ddya;
     private boolean Bup;
     private boolean Bplaying;
-    private Animation animation = new Animation();
+    public Animation animation = new Animation();
     private long LstartTime;
     private int movement;
 
 
     public Player (Bitmap res, int w, int h, int numFrames){
-        this.Ix=500;
+        this.Ix=700;
         this.Iy = 918;
         Iscore = 0;
         Iheight = h;
@@ -35,7 +36,7 @@ public class Player extends GameObject {
         }
 
         animation.setFrames(image);
-        animation.setLdelay(10);
+        animation.setLdelay(100);
         LstartTime = System.nanoTime();
 
     }
@@ -52,14 +53,20 @@ public class Player extends GameObject {
         }
         Ddya -= GRAVITY;
         Iy -= Ddya;
+        Ix += dx;
+        if (Ix+Iwidth > 2560){
+            dx = 0;}
+        if (Iy < 0){
+            Iy += Ddya;
+            Ddya = 0;}
         if (Iy > 918)
             Iy = 918;
         animation.update();
-        Ix += movement;
+        //Ix += movement;
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), 550, Iy, null);                 //remove hard code
+        canvas.drawBitmap(animation.getImage(), Ix, Iy, null);                 //remove hard code
 
     }
     public int getScore() {return Iscore;}
@@ -124,6 +131,15 @@ public class Player extends GameObject {
     }
 
     public void setMovement (int m) {movement = movement*m;}
+
+    public int getDx() {
+        return dx;
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
 
 }
 
