@@ -59,7 +59,7 @@ public class Player extends GameObject {
     }
 
     public void draw(Canvas canvas){
-        canvas.drawBitmap(animation.getImage(), 350, Iy, null);                 //remove hard code
+        canvas.drawBitmap(animation.getImage(), 550, Iy, null);                 //remove hard code
 
     }
     public int getScore() {return Iscore;}
