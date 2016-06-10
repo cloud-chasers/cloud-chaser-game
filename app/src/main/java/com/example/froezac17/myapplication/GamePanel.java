@@ -1,7 +1,6 @@
 package com.example.froezac17.myapplication;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -19,8 +18,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
     private Background bg;
     private Player player;
-    private Arrow up, down, left, right;
-    private int tapX, tapY;
 
 
     public GamePanel(Context contect){
@@ -41,10 +38,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         bg = new Background(BitmapFactory.decodeResource(getResources(),R.mipmap.ground), BitmapFactory.decodeResource(getResources(), R.mipmap.background));
         player = new Player(BitmapFactory.decodeResource(getResources(), R.mipmap.player), 178, 282, 5);
-        up = new Arrow(BitmapFactory.decodeResource(getResources(), R.mipmap.arrow), 200, 900);
-        down = new Arrow(BitmapFactory.decodeResource(getResources(), R.mipmap.arrowd), 200, 1212);
-        left = new Arrow(BitmapFactory.decodeResource(getResources(), R.mipmap.arrowl), 80, 1020);
-        right = new Arrow(BitmapFactory.decodeResource(getResources(), R.mipmap.arrowr), 392, 1020);
 
         thread.setBrunning(true);
         thread.start();
@@ -71,35 +64,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event){
 
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            tapX = (int) event.getX();
-            tapY = (int) event.getY();
-            System.out.println(tapX + " " + tapY);
-            if (tapX < up.getIx() + 192 && tapX > up.getIx()) {
-                if (tapY < up.getIy() + 120 && tapY > up.getIy()) {
-                    player.setDdya(65);
-                }
-                if (tapY < down.getIy() + 120 && tapY > down.getIy()) {
-                    player.setDx(0);
-                    player.animation.setLdelay(100);
-                }
-            }
-            if (tapY < left.getIy() + 192 && tapY > left.getIy()) {
-                if (tapX < left.getIx() + 120 && tapX > left.getIx()) {
-                    player.setDx(-10);
-                    player.animation.setLdelay(130);
-                }
-                if (tapX < right.getIx() + 120 && tapX > right.getIx()) {
-                    player.setDx(10);
-                    player.animation.setLdelay(70);
-                }
-            }
+        if (event.getAction()==MotionEvent.ACTION_DOWN) {
+            player.setDdya(100);
+            System.out.println("X Value " + (int) event.getX());
+            System.out.println("Y Value " + (int)event.getY());
         }
-            return super.onTouchEvent(event);
+        return super.onTouchEvent(event);
 
-        }
+    }
 
 
     public void update() {
@@ -120,11 +94,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             canvas.scale(scaleFactorX, scaleFactorY);
             bg.draw(canvas);
             player.draw(canvas);
-            up.draw(canvas);
-            down.draw(canvas);
-            left.draw(canvas);
-            right.draw(canvas);
-
             canvas.restoreToCount(savedState);
         }
     }
